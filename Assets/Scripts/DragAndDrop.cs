@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
+public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     private Vector3 offset;
     private CanvasGroup canvasGroup;
@@ -16,7 +16,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     {
         canvasGroup = GetComponent<CanvasGroup>();
     }
-
+   
     public void OnBeginDrag(PointerEventData touch)
     {
         startParent = transform.parent;
@@ -31,13 +31,8 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     public void OnDrag(PointerEventData touch)
     {
         //Debug.Log("OnDrag");
-        transform.position = (Vector3)touch.position + offset;
-    }
-
-    public void OnDrop(PointerEventData eventData)
-    {
-        //Debug.Log("OnDrop");
-    }
+        transform.position = Camera.main.ScreenPointToRay(touch.position).origin;
+    }    
 
     public void OnEndDrag(PointerEventData eventData)
     {
